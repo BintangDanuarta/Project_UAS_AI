@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Summarization</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script>
+        function getProgress() {
+            fetch('/progress')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('progress-bar').style.width = data.progress + '%';
+                    document.getElementById('progress-bar').innerText = data.progress + '%';
+                    if (data.progress < 100) {
+                        setTimeout(getProgress, 500);
+                    }
+                });
+        }
+
+        function startProgress() {
+            document.getElementById('progress-bar').style.width = '0%';
+            document.getElementById('progress-bar').innerText = '0%';
+            getProgress();
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Text Summarization</h1>
+        <form method="POST" enctype="multipart/form-data" onsubmit="startProgress()">
+            <input type="file" name="file" accept="application/pdf">
+            <textarea name="text" placeholder="Enter text here..." rows="10" cols="50"></textarea>
+            <button type="submit">Summarize</button>
+        </form>
+        <div class="progress-container">
+            <div id="progress-bar" class="progress-bar">0%</div>
+        </div>
+        {% if summary %}
+        <div class="summary">
+            <h2>Summary</h2>
+            <p>{{ summary }}</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

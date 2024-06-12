@@ -1,0 +1,1 @@
+buka file py-nya, lalu run, dan buka URL yang ada pada output

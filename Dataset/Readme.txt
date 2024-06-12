@@ -1,0 +1,1 @@
+dataset tidak ada versi csv-nya, karena teks yang digunakan untuk proses peringkasan berasal dari input pengguna atau teks yang diekstrak dari file PDF yang diunggah. 
